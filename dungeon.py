@@ -31,26 +31,11 @@ print('Je zie een deur achter het standbeeld.')
 print('')
 time.sleep(1)
 
-# === [kamer 3] === #
-items = ['schild', 'zwaard']
-item = random.choice(items)
-if item == 'zwaard':
-    player_attack += 2
-else:
-    player_defense += 1
-
-print('Je duwt hem open en stap een hele lange kamer binnen.')
-print(f'In deze kamer staat een tafel met daarop een {item}.')
-print(f'Je pakt het {item} op en houd het bij je.')
-print('Op naar de volgende deur.')
-print('')
-time.sleep(1)
-
-# === [kamer 4] === #
+# === [kamer 6] === #
 zombie_attack = 1
 zombie_defense = 0
 zombie_health = 2
-print(f'Dapper met je nieuwe {item} loop je de kamer binnen.')
+print('je loopt de kamer binnen.')
 print('Je loopt tegen een zombie aan.')
 
 zombie_hit_damage = (zombie_attack - player_defense)
@@ -73,6 +58,54 @@ else:
         print(f'Je health is nu {player_health}.')
     else:
         print('Helaas is de zombie te sterk voor je.')
+        print('Game over.')
+        exit()
+print('')
+time.sleep(1)
+
+# === [kamer 3] === #
+items = ['schild', 'zwaard']
+item = random.choice(items)
+if item == 'zwaard':
+    player_attack += 2
+else:
+    player_defense += 1
+
+print('Je duwt hem open en stap een hele lange kamer binnen.')
+print(f'In deze kamer staat een tafel met daarop een {item}.')
+print(f'Je pakt het {item} op en houd het bij je.')
+print('Op naar de volgende deur.')
+print('')
+time.sleep(1)
+
+# === [kamer 4] === #
+monster_attack = 2
+monster_defense = 0
+monster_health = 3
+
+print(f'Dapper met je nieuwe {item} loop je de kamer binnen.')
+print('Je loopt tegen een monster aan.')
+
+monster_hit_damage = (monster_attack - player_defense)
+if monster_hit_damage <= 0:
+    print('Jij hebt een te goede verdedigign voor de monster, hij kan je geen schade doen.')
+else:
+    # Bereken het aantal aanvallen dat de monster nodig heeft om de speler te verslaan (monster_attack_amount)
+    monster_attack_amount = math.ceil(player_health / monster_hit_damage)
+    
+    # Bereken de schade die de speler kan toebrengen (player_hit_damage)
+    player_hit_damage = (player_attack - monster_defense)
+    # Bereken het aantal aanvallen dat de speler nodig heeft om de monster te verslaan (player_attack_amount)
+    player_attack_amount = math.ceil(monster_health / player_hit_damage)
+
+# Als player_attack_amount kleiner is dan zombie_attack_amount:
+    if player_attack_amount < monster_attack_amount:
+        # Verminder player_health met de totale schade van de monster
+        player_health -= monster_attack_amount * monster_hit_damage
+        print(f'In {player_attack_amount} rondes versla je de monster.')
+        print(f'Je health is nu {player_health}.')
+    else:
+        print('Helaas is de monster te sterk voor je.')
         print('Game over.')
         exit()
 print('')
