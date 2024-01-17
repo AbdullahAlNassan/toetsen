@@ -31,37 +31,44 @@ print('Je zie een deur achter het standbeeld.')
 print('')
 time.sleep(1)
 
+kies_kamer = input("naar welke kamer ga je? 6 of 3?")
+
+
 # === [kamer 6] === #
-zombie_attack = 1
-zombie_defense = 0
-zombie_health = 2
-print('je loopt de kamer binnen.')
-print('Je loopt tegen een zombie aan.')
+if kies_kamer == '6':
+    zombie_attack = 1
+    zombie_defense = 0
+    zombie_health = 2
+    print('je loopt de kamer binnen.')
+    print('Je loopt tegen een zombie aan.')
 
-zombie_hit_damage = (zombie_attack - player_defense)
-if zombie_hit_damage <= 0:
-    print('Jij hebt een te goede verdedigign voor de zombie, hij kan je geen schade doen.')
-else:
-    # Bereken het aantal aanvallen dat de zombie nodig heeft om de speler te verslaan (zombie_attack_amount)
-    zombie_attack_amount = math.ceil(player_health / zombie_hit_damage)
-    
-    # Bereken de schade die de speler kan toebrengen (player_hit_damage)
-    player_hit_damage = (player_attack - zombie_defense)
-    # Bereken het aantal aanvallen dat de speler nodig heeft om de zombie te verslaan (player_attack_amount)
-    player_attack_amount = math.ceil(zombie_health / player_hit_damage)
-
-# Als player_attack_amount kleiner is dan zombie_attack_amount:
-    if player_attack_amount < zombie_attack_amount:
-        # Verminder player_health met de totale schade van de zombie
-        player_health -= zombie_attack_amount * zombie_hit_damage
-        print(f'In {player_attack_amount} rondes versla je de zombie.')
-        print(f'Je health is nu {player_health}.')
+    zombie_hit_damage = (zombie_attack - player_defense)
+    if zombie_hit_damage <= 0:
+        print('Jij hebt een te goede verdedigign voor de zombie, hij kan je geen schade doen.')
     else:
-        print('Helaas is de zombie te sterk voor je.')
-        print('Game over.')
-        exit()
-print('')
-time.sleep(1)
+        # Bereken het aantal aanvallen dat de zombie nodig heeft om de speler te verslaan (zombie_attack_amount)
+        zombie_attack_amount = math.ceil(player_health / zombie_hit_damage)
+        
+        # Bereken de schade die de speler kan toebrengen (player_hit_damage)
+        player_hit_damage = (player_attack - zombie_defense)
+        # Bereken het aantal aanvallen dat de speler nodig heeft om de zombie te verslaan (player_attack_amount)
+        player_attack_amount = math.ceil(zombie_health / player_hit_damage)
+
+    # Als player_attack_amount kleiner is dan zombie_attack_amount:
+        if player_attack_amount < zombie_attack_amount:
+            # Verminder player_health met de totale schade van de zombie
+            player_health -= zombie_attack_amount * zombie_hit_damage
+            print(f'In {player_attack_amount} rondes versla je de zombie.')
+            print(f'Je health is nu {player_health}.')
+        else:
+            print('Helaas is de zombie te sterk voor je.')
+            print('Game over.')
+            exit()
+    print('')
+    time.sleep(1)
+
+else:
+    pass
 
 # === [kamer 3] === #
 items = ['schild', 'zwaard']
