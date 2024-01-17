@@ -3,6 +3,7 @@ import time, math, random
 player_attack = 1
 player_defense = 0
 player_health = 3
+ruppee = 0
 
 # === [kamer 1] === #
 print('Door de twee grote deuren loop je een gang binnen.')
@@ -10,6 +11,10 @@ print('Het ruikt hier muf en vochtig.')
 print('Je ziet een deur voor je.')
 print('')
 time.sleep(1)
+
+# === [kamer 7] === #
+print('Je loopt de kamer in en vind je een ruppee')
+ruppee += 1
 
 # === [kamer 2] === #
 print('Je stapt door de deur heen en je ziet een standbeeld voor je.')
@@ -71,12 +76,15 @@ else:
     pass
 
 # === [kamer 3] === #
+print("Je kan nu een item kopen.:")
 items = ['schild', 'zwaard']
-item = random.choice(items)
+item = input("Kies je item uit schild of zwaard?")
 if item == 'zwaard':
     player_attack += 2
+    ruppee -= 1
 else:
     player_defense += 1
+    ruppee -= 1
 
 print('Je duwt hem open en stap een hele lange kamer binnen.')
 print(f'In deze kamer staat een tafel met daarop een {item}.')
