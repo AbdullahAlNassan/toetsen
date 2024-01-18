@@ -214,7 +214,7 @@ boss_hit_damage = (boss_attack - player_defense)
 if boss_hit_damage <= 0:
     print('Jij hebt een te goede verdedigign voor de monster, hij kan je geen schade doen.')
 else:
-    # Bereken het aantal aanvallen dat de boss nodig heeft om de speler te verslaan (boss_attack_amount)
+    #Bereken het aantal aanvallen dat de boss nodig heeft om de speler te verslaan (boss_attack_amount)
     boss_attack_amount = math.ceil(player_health / boss_hit_damage)
     
     # Bereken de schade die de speler kan toebrengen (player_hit_damage)
