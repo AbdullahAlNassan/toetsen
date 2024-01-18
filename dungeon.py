@@ -223,7 +223,7 @@ else:
     player_attack_amount = math.ceil(boss_health / player_hit_damage)
 
 # Als player_attack_amount kleiner is dan boss_attack_amount:
-    if player_attack_amount < boss_attack_amount
+    if player_attack_amount < boss_attack_amount:
         # Verminder player_health met de totale schade van de boss
         player_health -= boss_attack_amount * boss_hit_damage
         print(f'In {player_attack_amount} rondes versla je de boss.')
