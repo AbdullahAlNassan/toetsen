@@ -52,74 +52,81 @@ else:
 
 
 # === [kamer 6] === #
-if kies_kamer_7 == '2':
-    if kies_kamer == '6':
-        zombie_attack = 1
-        zombie_defense = 0
-        zombie_health = 2
-        print('je loopt de kamer binnen.')
-        print('Je loopt tegen een zombie aan.')
+if kies_kamer == '6':
+    zombie_attack = 1
+    zombie_defense = 0
+    zombie_health = 2
+    print('je loopt de kamer binnen.')
+    print('Je loopt tegen een zombie aan.')
 
-        zombie_hit_damage = (zombie_attack - player_defense)
-        if zombie_hit_damage <= 0:
-            print('Jij hebt een te goede verdedigign voor de zombie, hij kan je geen schade doen.')
-        else:
-            # Bereken het aantal aanvallen dat de zombie nodig heeft om de speler te verslaan (zombie_attack_amount)
-            zombie_attack_amount = math.ceil(player_health / zombie_hit_damage)
-            
-            # Bereken de schade die de speler kan toebrengen (player_hit_damage)
-            player_hit_damage = (player_attack - zombie_defense)
-            # Bereken het aantal aanvallen dat de speler nodig heeft om de zombie te verslaan (player_attack_amount)
-            player_attack_amount = math.ceil(zombie_health / player_hit_damage)
-
-        # Als player_attack_amount kleiner is dan zombie_attack_amount:
-            if player_attack_amount < zombie_attack_amount:
-                # Verminder player_health met de totale schade van de zombie
-                player_health -= zombie_attack_amount * zombie_hit_damage
-                print(f'In {player_attack_amount} rondes versla je de zombie.')
-                print(f'Je health is nu {player_health}.')
-            else:
-                print('Helaas is de zombie te sterk voor je.')
-                print('Game over.')
-                exit()
-        print('')
-        time.sleep(1)
-
+    zombie_hit_damage = (zombie_attack - player_defense)
+    if zombie_hit_damage <= 0:
+        print('Jij hebt een te goede verdedigign voor de zombie, hij kan je geen schade doen.')
     else:
-        pass
+        # Bereken het aantal aanvallen dat de zombie nodig heeft om de speler te verslaan (zombie_attack_amount)
+        zombie_attack_amount = math.ceil(player_health / zombie_hit_damage)
+        
+        # Bereken de schade die de speler kan toebrengen (player_hit_damage)
+        player_hit_damage = (player_attack - zombie_defense)
+        # Bereken het aantal aanvallen dat de speler nodig heeft om de zombie te verslaan (player_attack_amount)
+        player_attack_amount = math.ceil(zombie_health / player_hit_damage)
+
+    # Als player_attack_amount kleiner is dan zombie_attack_amount:
+        if player_attack_amount < zombie_attack_amount:
+            # Verminder player_health met de totale schade van de zombie
+            player_health -= zombie_attack_amount * zombie_hit_damage
+            print(f'In {player_attack_amount} rondes versla je de zombie.')
+            print(f'Je health is nu {player_health}.')
+        else:
+            print('Helaas is de zombie te sterk voor je.')
+            print('Game over.')
+            exit()
+    print('')
+    time.sleep(1)
+
 else:
     pass
 
+naar_kamer_3_6 = ('wil je gelijk naar kamer 3? (ja/nee)')
+
 # === [kamer 8] === #
-print('je komt een gokmachine tegen.')
-gokken = input('wil je de gokmachine gebruiken? (ja/nee)')
+if naar_kamer_3_6 == 'Nee' or kies_kamer_7 == '8':
+    print('je komt een gokmachine tegen.')
+    gokken = input('wil je de gokmachine gebruiken? (ja/nee)')
 
-if gokken == 'ja':
-    try1 = random.randint(1, 6)
-    try2 = random.randint(1, 6)
-    totaal = try1 + try2
+    if gokken == 'ja':
+        try1 = random.randint(1, 6)
+        try2 = random.randint(1, 6)
+        totaal = try1 + try2
 
-    print(f'je dubbelstenen hebben {try1} en {try2} gerolled')
+        print(f'je dubbelstenen hebben {try1} en {try2} gerolled')
 
-    if totaal > 7:
-        ruppee *= 2
-        print('mooi!! je ruppees zijn verdubbeld.')
-    elif totaal < 7:
-        player_health -= 1
+        if totaal > 7:
+            ruppee *= 2
+            print('mooi!! je ruppees zijn verdubbeld.')
+        elif totaal < 7:
+            player_health -= 1
+        else:
+            ruppee *= 2
+            player_health -= 1
+
     else:
-        ruppee *= 2
-        player_health -= 1
+        print('helaas!')
 
-else:
-    print('helaas!')
+    naar_kamer_3_8 = ('wil je gelijk naar kamer 3? (ja/nee)')
 
 # === [kamer 9] === #
-bonus = random.choice('defence', 'health')
 
-if bonus == 'defence':
-    player_defense += 1
+if naar_kamer_3_8 == 'nee':
+    bonus = random.choice('defence', 'health')
+
+    if bonus == 'defence':
+        player_defense += 1
+    else:
+        player_health += 2
+
 else:
-    player_health += 2
+    pass
 
 # === [kamer 3] === #
 print(f"Je kan nu items kopen. je hebt {ruppee} ruppees:")
