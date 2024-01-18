@@ -176,7 +176,6 @@ monster_attack = 2
 monster_defense = 0
 monster_health = 3
 
-print(f'Dapper met je nieuwe {item} loop je de kamer binnen.')
 print('Je loopt tegen een monster aan.')
 
 monster_hit_damage = (monster_attack - player_defense)
@@ -191,7 +190,7 @@ else:
     # Bereken het aantal aanvallen dat de speler nodig heeft om de monster te verslaan (player_attack_amount)
     player_attack_amount = math.ceil(monster_health / player_hit_damage)
 
-# Als player_attack_amount kleiner is dan zombie_attack_amount:
+# Als player_attack_amount kleiner is dan monster_attack_amount:
     if player_attack_amount < monster_attack_amount:
         # Verminder player_health met de totale schade van de monster
         player_health -= monster_attack_amount * monster_hit_damage
@@ -203,6 +202,39 @@ else:
         exit()
 print('')
 time.sleep(1)
+
+# === [kamer 10] === #
+boss_attack = 3
+boss_defense = 1
+boss_health = 5
+
+print('Je loopt tegen een monster aan.')
+
+boss_hit_damage = (boss_attack - player_defense)
+if boss_hit_damage <= 0:
+    print('Jij hebt een te goede verdedigign voor de monster, hij kan je geen schade doen.')
+else:
+    # Bereken het aantal aanvallen dat de boss nodig heeft om de speler te verslaan (boss_attack_amount)
+    boss_attack_amount = math.ceil(player_health / boss_hit_damage)
+    
+    # Bereken de schade die de speler kan toebrengen (player_hit_damage)
+    player_hit_damage = (player_attack - boss_defense)
+    # Bereken het aantal aanvallen dat de speler nodig heeft om de boss te verslaan (player_attack_amount)
+    player_attack_amount = math.ceil(boss_health / player_hit_damage)
+
+# Als player_attack_amount kleiner is dan boss_attack_amount:
+    if player_attack_amount < boss_attack_amount
+        # Verminder player_health met de totale schade van de boss
+        player_health -= boss_attack_amount * boss_hit_damage
+        print(f'In {player_attack_amount} rondes versla je de boss.')
+        print(f'Je health is nu {player_health}.')
+    else:
+        print('Helaas is de boss te sterk voor je.')
+        print('Game over.')
+        exit()
+print('')
+time.sleep(1)
+
 
 # === [kamer 5] === #
 print('Voorzichtig open je de deur, je wilt niet nog een zombie tegenkomen.')
