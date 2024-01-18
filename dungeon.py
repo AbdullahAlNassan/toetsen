@@ -15,7 +15,12 @@ time.sleep(1)
 
 # === [kamer 7] === #
 print('Je loopt de kamer in en vind je een ruppee')
-ruppee += 1
+kans_ruppee = random.randint(1, 10)
+if kans_ruppee == 1:
+    print('helaas is er geen ruppee in de kamer')
+else:
+    print('hoppaa! je hebt een ruppee gevonden.')    
+    ruppee += 1
 
 kies_kamer_7 = input("naar welke kamer ga je? 2 of 8?")
 
@@ -108,36 +113,48 @@ if gokken == 'ja':
 else:
     print('helaas!')
 
+# === [kamer 9] === #
+bonus = random.choice('defence', 'health')
+
+if bonus == 'defence':
+    player_defense += 1
+else:
+    player_health += 2
 
 # === [kamer 3] === #
-print(f"Je kan nu een item kopen. je hebt {ruppee} ruppees:")
+print(f"Je kan nu items kopen. je hebt {ruppee} ruppees:")
 print('elk item kost 1 ruppee')
-items = ['schild', 'zwaard']
-if ruppee >= 2:
-    item = input("wilt u een zwaard en schild kopen?(ja/nee)")
-    if item == 'ja':
-        player_attack += 2
-        player_defense += 1
-        ruppee -= 2
-        item = 'zwaard en schild'
+if ruppee > 0:
+    koop_sleutel = input('wil je de sleutel kopen?(ja/nee)')
+    if koop_sleutel == 'ja':
+        sleutel = True
+        ruppee -= 1
+    items = ['schild', 'zwaard']
+    if ruppee >= 2:
+        item = input("wilt u een zwaard en schild kopen?(ja/nee)")
+        if item == 'ja':
+            player_attack += 2
+            player_defense += 1
+            ruppee -= 2
+            item = 'zwaard en schild'
+
+        else:
+            item = input("wilt u een zwaard of schild kopen?")
+            if item == 'zwaard':
+                player_attack += 2
+                ruppee -= 1
+            else:
+                player_defense += 1
+                ruppee -= 1
 
     else:
-        item = input("wilt u een zwaard of schild kopen?")
-        if item == 'zwaard':
-            player_attack += 2
-            ruppee -= 1
-        else:
-            player_defense += 1
-            ruppee -= 1
-
-else:
-        item = input("wilt u een zwaard of schild kopen?")
-        if item == 'zwaard':
-            player_attack += 2
-            ruppee -= 1
-        else:
-            player_defense += 1
-            ruppee -= 1
+            item = input("wilt u een zwaard of schild kopen?")
+            if item == 'zwaard':
+                player_attack += 2
+                ruppee -= 1
+            else:
+                player_defense += 1
+                ruppee -= 1
 
 
 print('Je duwt hem open en stap een hele lange kamer binnen.')
