@@ -5,8 +5,14 @@ player_defense = 0
 player_health = 3
 ruppee = 0
 sleutel = False
+bom = 0
 naar_kamer_3_8 = ''
 naar_kamer_3_6 = ''
+naar_kamer_12_4 = ''
+kies_kamer = ''
+kies_kamer_3 = ''
+kies_kamer_7 = ''
+
 
 # === [kamer 1] === #
 print('Door de twee grote deuren loop je een gang binnen.')
@@ -134,30 +140,33 @@ if ruppee > 0:
     if koop_sleutel == 'ja':
         sleutel = True
         ruppee -= 1
-    items = ['schild', 'zwaard']
+    items = ['schild', 'bom',]
     if ruppee >= 2:
-        item = input("wilt u een zwaard en schild kopen?(ja/nee)")
+        item = input("wilt u een bom en schild kopen?(ja/nee)")
         if item == 'ja':
             player_attack += 2
             player_defense += 1
             ruppee -= 2
-            item = 'zwaard en schild'
+            bom += 1
+            item = 'bom en schild'
 
         else:
-            item = input("wilt u een zwaard of schild kopen?")
-            if item == 'zwaard':
+            item = input("wilt u een bom of schild kopen?")
+            if item == 'bom':
                 player_attack += 2
                 ruppee -= 1
+                bom += 1
             else:
                 player_defense += 1
                 ruppee -= 1
             
 
     elif ruppee > 0:
-        item = input("wilt u een zwaard of schild kopen?")
-        if item == 'zwaard':
+        item = input("wilt u een bom of schild kopen?")
+        if item == 'bom':
             player_attack += 2
             ruppee -= 1
+            bom += 1
         else:
             player_defense += 1
             ruppee -= 1
@@ -172,8 +181,19 @@ print(f'Je pakt het op en houdt het bij je.')
 print('Op naar de volgende deur.')
 print('')
 time.sleep(1)
+if bom > 0:
+    kies_kamer_3 = input('wil je naar kamer 4 of 11 of de hek opblazen en naar 13?')
+else:
+    kies_kamer_3 = input('wil je naar kamer 4 of 11')
 
-kies_kamer_3 = input('wil naar kamer 4 of 11?')
+# === [kamer 13] === #
+if kies_kamer_3 == '13':
+    print('je loopt de kamer binnen en vindt de zwaard')
+    print('je pakt hem op')
+    player_attack += 2
+
+else:
+    pass
 
 # === [kamer 4] === #
 if kies_kamer_3 == '4':
@@ -207,10 +227,9 @@ if kies_kamer_3 == '4':
             exit()
     print('')
     time.sleep(1)
+    naar_kamer_12_4 = input('wil je naar kamer 12 of 10?')
 else:
     pass
-
-naar_kamer_12_4 = input('wil je naar kamer 12 of 10?')
 
 # === [kamer 12] === #
 if naar_kamer_12_4 == '12':
