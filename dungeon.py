@@ -210,6 +210,18 @@ if kies_kamer_3 == '4':
 else:
     pass
 
+naar_kamer_12_4 = input('wil je naar kamer 12 of 10?')
+
+# === [kamer 12] === #
+if naar_kamer_12_4 == '12':
+    print('je loopt de kamer in de val je in een put!!')
+    print('je bent dood.')
+    print('Game over.')
+    exit()
+
+else:
+    pass
+
 # === [kamer 11] === #
 print('je loopt de kamer binnen. Deze kamer zit vol met pijlen die uit de muur schieten')
 if player_defense < 0:
