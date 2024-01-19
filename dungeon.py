@@ -5,6 +5,8 @@ player_defense = 0
 player_health = 3
 ruppee = 0
 sleutel = False
+naar_kamer_3_8 = ''
+naar_kamer_3_6 = ''
 
 # === [kamer 1] === #
 print('Door de twee grote deuren loop je een gang binnen.')
@@ -35,8 +37,8 @@ if kies_kamer_7 == '2':
     antwoord = int(input('Wat toest je in?'))
 
     if antwoord == num1 + num2:
-        print('Het stadbeeld laat de sleutel vallen en je pakt het op')
-        sleutel = True
+        print('je hebt een ruppee gevonden')
+        ruppee += 1
     else:
         print('Er gebeurt niets....')
 
@@ -46,60 +48,57 @@ if kies_kamer_7 == '2':
 
     kies_kamer = input("naar welke kamer ga je? 6 of 8?")
 
-else:
-    pass
-
-
-
 # === [kamer 6] === #
-if kies_kamer == '6':
-    zombie_attack = 1
-    zombie_defense = 0
-    zombie_health = 2
-    print('je loopt de kamer binnen.')
-    print('Je loopt tegen een zombie aan.')
+if kies_kamer_7 == '2':
+    if kies_kamer == '6':
+        zombie_attack = 1
+        zombie_defense = 0
+        zombie_health = 2
+        print('je loopt de kamer binnen.')
+        print('Je loopt tegen een zombie aan.')
 
-    zombie_hit_damage = (zombie_attack - player_defense)
-    if zombie_hit_damage <= 0:
-        print('Jij hebt een te goede verdedigign voor de zombie, hij kan je geen schade doen.')
-    else:
-        # Bereken het aantal aanvallen dat de zombie nodig heeft om de speler te verslaan (zombie_attack_amount)
-        zombie_attack_amount = math.ceil(player_health / zombie_hit_damage)
-        
-        # Bereken de schade die de speler kan toebrengen (player_hit_damage)
-        player_hit_damage = (player_attack - zombie_defense)
-        # Bereken het aantal aanvallen dat de speler nodig heeft om de zombie te verslaan (player_attack_amount)
-        player_attack_amount = math.ceil(zombie_health / player_hit_damage)
-
-    # Als player_attack_amount kleiner is dan zombie_attack_amount:
-        if player_attack_amount < zombie_attack_amount:
-            # Verminder player_health met de totale schade van de zombie
-            player_health -= zombie_attack_amount * zombie_hit_damage
-            print(f'In {player_attack_amount} rondes versla je de zombie.')
-            print(f'Je health is nu {player_health}.')
+        zombie_hit_damage = (zombie_attack - player_defense)
+        if zombie_hit_damage <= 0:
+            print('Jij hebt een te goede verdedigign voor de zombie, hij kan je geen schade doen.')
         else:
-            print('Helaas is de zombie te sterk voor je.')
-            print('Game over.')
-            exit()
-    print('')
-    time.sleep(1)
+            # Bereken het aantal aanvallen dat de zombie nodig heeft om de speler te verslaan (zombie_attack_amount)
+            zombie_attack_amount = math.ceil(player_health / zombie_hit_damage)
+            
+            # Bereken de schade die de speler kan toebrengen (player_hit_damage)
+            player_hit_damage = (player_attack - zombie_defense)
+            # Bereken het aantal aanvallen dat de speler nodig heeft om de zombie te verslaan (player_attack_amount)
+            player_attack_amount = math.ceil(zombie_health / player_hit_damage)
 
+        # Als player_attack_amount kleiner is dan zombie_attack_amount:
+            if player_attack_amount < zombie_attack_amount:
+                # Verminder player_health met de totale schade van de zombie
+                player_health -= zombie_attack_amount * zombie_hit_damage
+                print(f'In {player_attack_amount} rondes versla je de zombie.')
+                print(f'Je health is nu {player_health}.')
+                naar_kamer_3_6 = input('wil je gelijk naar kamer 3? (ja/nee)')
+            else:
+                print('Helaas is de zombie te sterk voor je.')
+                print('Game over.')
+                exit()
+        print('')
+        time.sleep(1)
+    else:
+        pass
 else:
     pass
 
-naar_kamer_3_6 = ('wil je gelijk naar kamer 3? (ja/nee)')
 
 # === [kamer 8] === #
-if naar_kamer_3_6 == 'Nee' or kies_kamer_7 == '8':
+if naar_kamer_3_6 == 'nee' or kies_kamer_7 == '8':
     print('je komt een gokmachine tegen.')
     gokken = input('wil je de gokmachine gebruiken? (ja/nee)')
 
-    if gokken == 'ja':
+    if gokken.lower() == 'ja':
         try1 = random.randint(1, 6)
         try2 = random.randint(1, 6)
         totaal = try1 + try2
 
-        print(f'je dubbelstenen hebben {try1} en {try2} gerolled')
+        print(f'je dubbelstenen hebben {try1} en {try2} gerold')
 
         if totaal > 7:
             ruppee *= 2
@@ -113,12 +112,11 @@ if naar_kamer_3_6 == 'Nee' or kies_kamer_7 == '8':
     else:
         print('helaas!')
 
-    naar_kamer_3_8 = ('wil je gelijk naar kamer 3? (ja/nee)')
+    naar_kamer_3_8 = input('wil je gelijk naar kamer 3? (ja/nee)')
 
 # === [kamer 9] === #
-
 if naar_kamer_3_8 == 'nee':
-    bonus = random.choice('defence', 'health')
+    bonus = random.choice(['defence', 'health'])
 
     if bonus == 'defence':
         player_defense += 1
@@ -153,94 +151,121 @@ if ruppee > 0:
             else:
                 player_defense += 1
                 ruppee -= 1
+            
 
+    elif ruppee > 0:
+        item = input("wilt u een zwaard of schild kopen?")
+        if item == 'zwaard':
+            player_attack += 2
+            ruppee -= 1
+        else:
+            player_defense += 1
+            ruppee -= 1
     else:
-            item = input("wilt u een zwaard of schild kopen?")
-            if item == 'zwaard':
-                player_attack += 2
-                ruppee -= 1
-            else:
-                player_defense += 1
-                ruppee -= 1
+        print('Helaas je hebt 0 ruppees je kan niks meer kopen')
+else:
+    print('Helaas je hebt 0 ruppees je kan niks kopen')
 
-
-print('Je duwt hem open en stap een hele lange kamer binnen.')
-print(f'In deze kamer staat een tafel met daarop een {item}.')
-print(f'Je pakt het {item} op en houd het bij je.')
+print('je komt eem deur tegen. Je duwt hem open en stap een hele lange kamer binnen.')
+print(f'In deze kamer staat een tafel er is iets op de tafel.')
+print(f'Je pakt het op en houdt het bij je.')
 print('Op naar de volgende deur.')
 print('')
 time.sleep(1)
 
+kies_kamer_3 = input('wil naar kamer 4 of 11?')
+
 # === [kamer 4] === #
-monster_attack = 2
-monster_defense = 0
-monster_health = 3
+if kies_kamer_3 == '4':
+    monster_attack = 2
+    monster_defense = 0
+    monster_health = 3
 
-print('Je loopt tegen een monster aan.')
+    print('Je loopt tegen een monster aan.')
 
-monster_hit_damage = (monster_attack - player_defense)
-if monster_hit_damage <= 0:
-    print('Jij hebt een te goede verdedigign voor de monster, hij kan je geen schade doen.')
-else:
-    # Bereken het aantal aanvallen dat de monster nodig heeft om de speler te verslaan (monster_attack_amount)
-    monster_attack_amount = math.ceil(player_health / monster_hit_damage)
-    
-    # Bereken de schade die de speler kan toebrengen (player_hit_damage)
-    player_hit_damage = (player_attack - monster_defense)
-    # Bereken het aantal aanvallen dat de speler nodig heeft om de monster te verslaan (player_attack_amount)
-    player_attack_amount = math.ceil(monster_health / player_hit_damage)
-
-# Als player_attack_amount kleiner is dan monster_attack_amount:
-    if player_attack_amount < monster_attack_amount:
-        # Verminder player_health met de totale schade van de monster
-        player_health -= monster_attack_amount * monster_hit_damage
-        print(f'In {player_attack_amount} rondes versla je de monster.')
-        print(f'Je health is nu {player_health}.')
+    monster_hit_damage = (monster_attack - player_defense)
+    if monster_hit_damage <= 0:
+        print('Jij hebt een te goede verdediging voor de monster, hij kan je geen schade doen.')
     else:
-        print('Helaas is de monster te sterk voor je.')
-        print('Game over.')
-        exit()
-print('')
-time.sleep(1)
+        # Bereken het aantal aanvallen dat de monster nodig heeft om de speler te verslaan (monster_attack_amount)
+        monster_attack_amount = math.ceil(player_health / monster_hit_damage)
+        
+        # Bereken de schade die de speler kan toebrengen (player_hit_damage)
+        player_hit_damage = (player_attack - monster_defense)
+        # Bereken het aantal aanvallen dat de speler nodig heeft om de monster te verslaan (player_attack_amount)
+        player_attack_amount = math.ceil(monster_health / player_hit_damage)
+
+        # Als player_attack_amount kleiner is dan monster_attack_amount:
+        if player_attack_amount < monster_attack_amount:
+            # Verminder player_health met de totale schade van de monster
+            player_health -= monster_attack_amount * monster_hit_damage
+            print(f'In {player_attack_amount} rondes versla je de monster.')
+            print(f'Je health is nu {player_health}.')
+        else:
+            print('Helaas is de monster te sterk voor je.')
+            print('Game over.')
+            exit()
+    print('')
+    time.sleep(1)
+else:
+    pass
+
+# === [kamer 11] === #
+print('je loopt de kamer binnen. Deze kamer zit vol met pijlen die uit de muur schieten')
+if player_defense < 0:
+    print('helaas heb je geen schild om je zelf te beschermen')
+    print('Game over!')
+else:
+    print('bescherm je zelf met je schild!')
+    time.sleep(1)
+    print('yeehh! je hebt de kamer levend gepasseerd.')
+    print('op naar de volgende kamer')
+
 
 # === [kamer 10] === #
 boss_attack = 3
 boss_defense = 1
 boss_health = 5
 
-print('Je loopt tegen een monster aan.')
+print('Je loopt tegen een nieuwe monster aan (the boss).')
 
 boss_hit_damage = (boss_attack - player_defense)
-if boss_hit_damage <= 0:
-    print('Jij hebt een te goede verdedigign voor de monster, hij kan je geen schade doen.')
-else:
-    #Bereken het aantal aanvallen dat de boss nodig heeft om de speler te verslaan (boss_attack_amount)
-    boss_attack_amount = math.ceil(player_health / boss_hit_damage)
-    
-    # Bereken de schade die de speler kan toebrengen (player_hit_damage)
-    player_hit_damage = (player_attack - boss_defense)
-    # Bereken het aantal aanvallen dat de speler nodig heeft om de boss te verslaan (player_attack_amount)
-    player_attack_amount = math.ceil(boss_health / player_hit_damage)
+# Bereken de schade die de speler kan toebrengen (player_hit_damage)
+player_hit_damage = (player_attack - boss_defense)
 
-# Als player_attack_amount kleiner is dan boss_attack_amount:
-    if player_attack_amount < boss_attack_amount:
-        # Verminder player_health met de totale schade van de boss
-        player_health -= boss_attack_amount * boss_hit_damage
-        print(f'In {player_attack_amount} rondes versla je de boss.')
-        print(f'Je health is nu {player_health}.')
-    else:
-        print('Helaas is de boss te sterk voor je.')
+if boss_hit_damage <= 0:
+    print('Jij hebt een te goede verdediging voor de monster, hij kan je geen schade doen.')
+else:
+    if player_hit_damage == 0:
+        print('Je hebt geen genoeg kracht.')
         print('Game over.')
         exit()
+
+
+# Bereken het aantal aanvallen dat de monster nodig heeft om de speler te verslaan (monster_attack_amount)
+boss_attack_amount = math.ceil(player_health / boss_hit_damage)
+
+# Bereken het aantal aanvallen dat de speler nodig heeft om de monster te verslaan (player_attack_amount)
+player_attack_amount = math.ceil(boss_health / player_hit_damage)
+
+# Als player_attack_amount kleiner is dan monster_attack_amount:
+if player_attack_amount < boss_attack_amount:
+    # Verminder player_health met de totale schade van de monster
+    player_health -= boss_attack_amount * boss_hit_damage
+    print(f'In {player_attack_amount} rondes versla je de monster.')
+    print(f'Je health is nu {player_health}.')
+else:
+    print('Helaas is de boss te sterk voor je.')
+    print('Game over.')
+    exit()
 print('')
 time.sleep(1)
 
-
 # === [kamer 5] === #
 print('Voorzichtig open je de deur, je wilt niet nog een zombie tegenkomen.')
-print('Tot je verbazig zie je een schatkist in het midden van de kamer staan.')
+print('Tot je verbazing zie je een schatkist in het midden van de kamer staan.')
 print('Je loopt er naartoe.')
 if sleutel:
-    print('Met de sleutel die gevonden hebt open je de schatkst. Gefeliciteerd je hebt gewonnen!!!!')
+    print('Met de sleutel die je hebt gevonden open je de schatkist. Gefeliciteerd je hebt gewonnen!!!!')
 else:
     print('Je hebt helaas geen sleutel om de schatkist te kunnen openen. je hebt verloren :(')
